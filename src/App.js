@@ -1,14 +1,8 @@
 import React, { Component } from "react";
-import {
-  ButtonGroup,
-  Container,
-  Grid,
-  Typography,
-  Button,
-  Avatar,
-  Box,
-} from "@material-ui/core";
+import { Container, Grid, Typography } from "@material-ui/core";
 import data from "./data";
+import SliderPerson from "./components/SliderPerson";
+import SliderButton from "./components/SliderButton";
 
 export default class App extends Component {
   constructor(props) {
@@ -39,6 +33,13 @@ export default class App extends Component {
     }, 3000);
     return () => clearInterval(slider);
   }
+
+  prevSlide = () => {
+    this.setState({ slideIndex: this.state.slideIndex - 1 });
+  };
+  nextSlide = () => {
+    this.setState({ slideIndex: this.state.slideIndex + 1 });
+  };
   render() {
     return (
       <Container maxWidth="lg">
@@ -58,56 +59,20 @@ export default class App extends Component {
 
         <div className="section-center">
           {this.state.people.map((person, personIndex) => {
-            const { id, image, name, title, quote } = person;
-            let position = "nextSlide";
-            if (personIndex === this.state.slideIndex) {
-              position = "activeSlide";
-            }
-
-            if (
-              personIndex === this.state.slideIndex - 1 ||
-              (this.state.slideIndex === 0 &&
-                personIndex === this.state.people.length - 1)
-            ) {
-              position = "lastSlide";
-            }
             return (
-              <article className={position} key={id}>
-                <Box display="flex" justifyContent="center" alignItems="center">
-                  <Avatar alt={name} src={image} />
-                </Box>
-                <Typography align="center">{name}</Typography>
-                <Typography
-                  align="center"
-                  variant="button"
-                  display="block"
-                  color="secondary"
-                  gutterBottom
-                >
-                  {title}
-                </Typography>
-                <Typography align="center" ariant="body2" gutterBottom>
-                  {quote}
-                </Typography>
-              </article>
+              <SliderPerson
+                person={person}
+                personIndex={personIndex}
+                slideIndex={this.state.slideIndex}
+                people={this.state.people}
+              />
             );
           })}
-          <ButtonGroup color="primary" variant="contained">
-            <Button
-              onClick={() =>
-                this.setState({ slideIndex: this.state.slideIndex - 1 })
-              }
-            >
-              Prev
-            </Button>
-            <Button
-              onClick={() =>
-                this.setState({ slideIndex: this.state.slideIndex + 1 })
-              }
-            >
-              next
-            </Button>
-          </ButtonGroup>
+          <SliderButton
+            slideIndex={this.state.slideIndex}
+            prevSlide={this.prevSlide}
+            nextSlide={this.nextSlide}
+          />
         </div>
       </Container>
     );
