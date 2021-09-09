@@ -1,10 +1,10 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { Typography, Avatar, Box } from "@material-ui/core";
 
 export default class SliderPerson extends Component {
-  test = () => {};
   render() {
-    const { id, image, name, title, quote } = this.props.person;
+    const { image, name, title, quote } = this.props.person;
     const { slideIndex, personIndex, people } = this.props;
     {
       let position = "nextSlide";
@@ -19,7 +19,7 @@ export default class SliderPerson extends Component {
         position = "lastSlide";
       }
       return (
-        <article className={position} key={id}>
+        <article className={position} data-test="slider-person-container">
           <Box display="flex" justifyContent="center" alignItems="center">
             <Avatar alt={name} src={image} />
           </Box>
@@ -41,3 +41,10 @@ export default class SliderPerson extends Component {
     }
   }
 }
+
+SliderPerson.propTypes = {
+  person: PropTypes.object.isRequired,
+  personIndex: PropTypes.number.isRequired,
+  slideIndex: PropTypes.number.isRequired,
+  people: PropTypes.array.isRequired,
+};

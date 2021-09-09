@@ -42,10 +42,11 @@ export default class App extends Component {
   };
   render() {
     return (
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" data-test="component-app">
         <Grid container spacing={4} justifyContent="center">
           <Grid item xs={12} sm={6} md={4}>
             <Typography
+              data-test="review-title"
               component="h4"
               variant="h4"
               align="center"
@@ -61,14 +62,17 @@ export default class App extends Component {
           {this.state.people.map((person, personIndex) => {
             return (
               <SliderPerson
+                data-test="slider-person-component"
                 person={person}
                 personIndex={personIndex}
                 slideIndex={this.state.slideIndex}
                 people={this.state.people}
+                key={person.id}
               />
             );
           })}
           <SliderButton
+            data-test="slider-button-component"
             slideIndex={this.state.slideIndex}
             prevSlide={this.prevSlide}
             nextSlide={this.nextSlide}

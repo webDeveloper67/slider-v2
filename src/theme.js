@@ -15,7 +15,10 @@ const theme = createTheme({
       },
     },
     MuiAvatar: {
-      sizes: "80px",
+      root: {
+        height: "90px",
+        width: "90px",
+      },
     },
   },
   typography: {
